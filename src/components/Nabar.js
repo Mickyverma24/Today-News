@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 export class Nabar extends Component {
     render() {
         return (
-            <div>
+            <>
                 <nav className="navbar navbar-expand-lg bg-light" >
                     <div className="container-fluid" >
                         <Link className="navbar-brand" to="/">News Today</Link>
@@ -41,7 +41,7 @@ export class Nabar extends Component {
                         </div>
                     </div>
                 </nav>
-            </div>
+            </>
         )
     }
 }

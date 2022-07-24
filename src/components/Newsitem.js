@@ -4,7 +4,7 @@ export class Newsitem extends Component {
   render() {
     let { title, description, imageUrl,newsUrl,author,date,source } = this.props;
     return (
-      <div>
+      <>
         <span className="badge rounded-pill text-bg-danger">{source}</span>
         <div className="card" style={{width:'18rem'}}>
           <img src={imageUrl} className="card-img-top" alt="..." />
@@ -18,7 +18,7 @@ export class Newsitem extends Component {
           </div>
         </div>
         
-      </div>
+      </>
     );
   }
 }

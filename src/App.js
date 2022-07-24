@@ -4,6 +4,8 @@ import News from "./components/News";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default class App extends Component {
+  apiKey = process.env.REACT_APP_NEWS_API;
+
   pageSize = 9;
   render() {
     return (
@@ -16,9 +18,10 @@ export default class App extends Component {
               element={
                 <News
                   key="general"
-                    pageSize={this.pageSize}
+                  pageSize={this.pageSize}
                   country="in"
                   category="general"
+                  apiKey={this.apiKey}
                 />
               }
             />
@@ -27,9 +30,10 @@ export default class App extends Component {
               element={
                 <News
                   key="business"
-                    pageSize={this.pageSize}
+                  pageSize={this.pageSize}
                   country="in"
                   category="business"
+                  apiKey={this.apiKey}
                 />
               }
             />
@@ -38,9 +42,10 @@ export default class App extends Component {
               element={
                 <News
                   key="entertainment"
-                    pageSize={this.pageSize}
+                  pageSize={this.pageSize}
                   country="in"
                   category="entertainment"
+                  apiKey={this.apiKey}
                 />
               }
             />
@@ -49,9 +54,10 @@ export default class App extends Component {
               element={
                 <News
                   key="general"
-                    pageSize={this.pageSize}
+                  pageSize={this.pageSize}
                   country="in"
                   category="general"
+                  apiKey={this.apiKey}
                 />
               }
             />
@@ -60,9 +66,10 @@ export default class App extends Component {
               element={
                 <News
                   key="health"
-                    pageSize={this.pageSize}
+                  pageSize={this.pageSize}
                   country="in"
                   category="health"
+                  apiKey={this.apiKey}
                 />
               }
             />
@@ -71,9 +78,10 @@ export default class App extends Component {
               element={
                 <News
                   key="science"
-                    pageSize={this.pageSize}
+                  pageSize={this.pageSize}
                   country="in"
                   category="science"
+                  apiKey={this.apiKey}
                 />
               }
             />
@@ -82,9 +90,10 @@ export default class App extends Component {
               element={
                 <News
                   key="sports"
-                    pageSize={this.pageSize}
+                  pageSize={this.pageSize}
                   country="in"
                   category="sports"
+                  apiKey={this.apiKey}
                 />
               }
             />
@@ -93,9 +102,10 @@ export default class App extends Component {
               element={
                 <News
                   key="technology"
-                    pageSize={this.pageSize}
+                  pageSize={this.pageSize}
                   country="in"
                   category="technology"
+                  apiKey={this.apiKey}
                 />
               }
             />
@@ -104,5 +114,4 @@ export default class App extends Component {
       </BrowserRouter>
     );
   }
-}
-
+} 
