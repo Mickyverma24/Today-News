@@ -1,62 +1,51 @@
-import React, { Component } from "react";
+import React,{useEffect,useState} from "react";
 import Newsitem from "./Newsitem";
 import Spinner from "./Spinner";
 import PropTypes from 'prop-types';
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export class News extends Component {
-  static defaultPros ={
-    country:'in',
-    pageSize:12,
-    category:'general'
-  }
-  static propTypes={
-    country:PropTypes.string,
-    pageSize:PropTypes.number,
-    category:PropTypes.string
-  }
+const News = ()=> {
+  const [articles,setArticles] = useState([])
+  const [loading,setLoading ] = useState(true)  
+  const [page,setPage] = useState(1)
+  const [totalResults,setTotalResults] = useState(0)
+  // document.title = `${this.capitalzer(props.category)}-Today News`;
   capitalzer = (string)=>{
     return string.charAt(0).toUpperCase()+string.slice(1);
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-      articles: [],
-      loading: true,
-      page: 1,
-      totalResults:0
-    };
-    document.title = `${this.capitalzer(this.props.category)}-Today News`;
   }
-  async updateNews(){
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${
+ const updateNews= async (props) => {
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${
       this.state.page
-    }&pageSize=${this.props.pageSize}`;
+    }&pageSize=${props.pageSize}`;
     this.setState({loading:true})
     let data = await fetch(url);
     let parsedData = await data.json();
-    this.setState({articles: parsedData.articles,loading:false,totalResults:parsedData.totalResults });
+    setArticles(parsedData.articles)
+    setLoading(false)
+    setTotalResults(parsedData.totalResults)
   };
+  useEffect(()=>{this.updateNews()},[])
   
-  async componentDidMount() {
+  const componentDidMount=async()=> {
    this.updateNews()
   }
   fetchMoreData =async () => {
    
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${
-      this.state.page
-    }&pageSize=${this.props.pageSize}`;
-    this.setState({page:this.state.page+1})
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${
+     page
+    }&pageSize=${props.pageSize}`;
+    setState({page:page+1})
       let data = await fetch(url);
       let parsedData = await data.json();
       this.setState({ articles:this.state.articles.concat( parsedData.articles),totalResults:parsedData.totalResults });
   };
-  render() {
+
     return (
       <>
         <div className="text-center">
         <h2 style={{margin:'35px'}}>
-          <i>News Today- Top {this.capitalzer(this.props.category)} Headlines</i>
+          <i>News Today- Top {this.capitalzer(props.category)} Headlines</i>
         </h2>
         {this.state.loading &&<Spinner/>}
         </div>
@@ -69,7 +58,7 @@ export class News extends Component {
         >
           <div className="container">
           <div className="row">
-          {this.state.articles.map((element) => {
+          {this.state.articles.map((element,index) => {
             return (
               <div className="col md-3" key={element.url}>
                     <Newsitem
@@ -77,6 +66,7 @@ export class News extends Component {
                       description={
                         element.description ? element.description : ""
                       }
+                      key = {index}
                       imageUrl={
                         element.urlToImage
                         ? element.urlToImage
@@ -96,7 +86,17 @@ export class News extends Component {
         </div>
       </>
     );
-  }
+  
 }
 
 export default News;
+ News.defaultPros ={
+  country:'in',
+  pageSize:12,
+  category:'general'
+}
+News.propTypes={
+  country:PropTypes.string,
+  pageSize:PropTypes.number,
+  category:PropTypes.string
+}

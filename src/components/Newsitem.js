@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class Newsitem extends Component {
-  render() {
-    let { title, description, imageUrl,newsUrl,author,date,source } = this.props;
+const Newsitem = (props)=> {
+ 
+    let { title, description, imageUrl,newsUrl,author,date,source } =props;
     return (
       <>
         <span className="badge rounded-pill text-bg-danger">{source}</span>
@@ -20,7 +20,7 @@ export class Newsitem extends Component {
         
       </>
     );
-  }
+  
 }
 
 export default Newsitem;
