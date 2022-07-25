@@ -4,61 +4,57 @@ import Spinner from "./Spinner";
 import PropTypes from 'prop-types';
 import InfiniteScroll from "react-infinite-scroll-component";
 
-const News = ()=> {
-  const [articles,setArticles] = useState([])
-  const [loading,setLoading ] = useState(true)  
-  const [page,setPage] = useState(1)
-  const [totalResults,setTotalResults] = useState(0)
-  // document.title = `${this.capitalzer(props.category)}-Today News`;
-  capitalzer = (string)=>{
+const News = (props)=> {
+    const [articles,setArticles] = useState([])
+    const [loading,setLoading ] = useState(true)  
+    const [page,setPage] = useState(1)
+    const [totalResults,setTotalResults] = useState(0)
+    const  capitalzer = (string)=>{
     return string.charAt(0).toUpperCase()+string.slice(1);
   }
-  }
- const updateNews= async (props) => {
-    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${
-      this.state.page
-    }&pageSize=${props.pageSize}`;
-    this.setState({loading:true})
+  
+  const updateNews= async (props) => {
+    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
-    setArticles(parsedData.articles)
     setLoading(false)
     setTotalResults(parsedData.totalResults)
+    setArticles(parsedData.articles)
   };
-  useEffect(()=>{this.updateNews()},[])
-  
-  const componentDidMount=async()=> {
-   this.updateNews()
-  }
-  fetchMoreData =async () => {
+  useEffect(()=>
+  {updateNews()
+    // document.title = `${capitalzer(props.category)}-Today News`;
+  },[])
+
+ const fetchMoreData =async () => {
    
+   setPage(page+1)
     let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${
      page
     }&pageSize=${props.pageSize}`;
-    setState({page:page+1})
       let data = await fetch(url);
       let parsedData = await data.json();
-      this.setState({ articles:this.state.articles.concat( parsedData.articles),totalResults:parsedData.totalResults });
-  };
-
-    return (
+      setArticles(articles.concat(parsedData.articles))
+      setTotalResults(parsedData.totalResults)
+  }
+       return (
       <>
         <div className="text-center">
         <h2 style={{margin:'35px'}}>
-          <i>News Today- Top {this.capitalzer(props.category)} Headlines</i>
+          <i>News Today- Top {capitalzer(props.category)} Headlines</i>
         </h2>
-        {this.state.loading &&<Spinner/>}
+        {loading &&<Spinner/>}
         </div>
         <div className="row">
         <InfiniteScroll
-          dataLength={this.state.articles.length}
-          next={this.fetchMoreData}
-          hasMore={this.state.articles.length !== this.state.totalResults}
+          dataLength={articles.length}
+          next={fetchMoreData}
+          hasMore={articles.length !== totalResults}
           loader={<Spinner/>}
         >
           <div className="container">
           <div className="row">
-          {this.state.articles.map((element,index) => {
+          {articles.map((element,index) => {
             return (
               <div className="col md-3" key={element.url}>
                     <Newsitem
@@ -87,10 +83,11 @@ const News = ()=> {
       </>
     );
   
-}
+}         
 
 export default News;
- News.defaultPros ={
+
+ News.defaultProps = {
   country:'in',
   pageSize:12,
   category:'general'
