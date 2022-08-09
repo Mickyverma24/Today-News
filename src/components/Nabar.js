@@ -1,8 +1,11 @@
 import React from 'react'
-import { Link } from "react-router-dom"
+import { Link,useLocation } from "react-router-dom"
 
 const Nabar = ()=> {
-    
+    let location = useLocation();
+    useEffect(() => {
+    console.log(location.pathname)
+  }, [location]);
         return (
             <div>
                 <nav className="navbar navbar-expand-lg bg-light" >
@@ -14,28 +17,28 @@ const Nabar = ()=> {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent" >
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                                    <Link className={`nav-link ${location.pathname==='/'?"active":" "}`} aria-current="page" to="/">Home</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/business">business</Link>
+                                    <Link className={`nav-link ${location.pathname==='/'?"active":" "}`} aria-current="page" to="/business">business</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/entertainment">entertainment</Link>
+                                    <Link className={`nav-link ${location.pathname==='/'?"active":" "}`} aria-current="page" to="/entertainment">entertainment</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/general">general</Link>
+                                    <Link className={`nav-link ${location.pathname==='/'?"active":" "}`} aria-current="page" to="/general">general</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/health">health</Link>
+                                    <Link className={`nav-link ${location.pathname==='/'?"active":" "}`} aria-current="page" to="/health">health</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/science">science</Link>
+                                    <Link className={`nav-link ${location.pathname==='/'?"active":" "}`} aria-current="page" to="/science">science</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/sports">sports</Link>
+                                    <Link className={`nav-link ${location.pathname==='/'?"active":" "}`} aria-current="page" to="/sports">sports</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/technology">technology</Link>
+                                    <Link className={`nav-link ${location.pathname==='/'?"active":" "}`} aria-current="page" to="/technology">technology</Link>
                                 </li>
                             </ul>
                         </div>
